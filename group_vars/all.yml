@@ -1,0 +1,6 @@
+---
+etc_hosts: [
+  "192.168.8.10 control control.example.com",
+  "192.168.8.11 node1 node1.example.com",
+  "192.168.8.12 node2 node2.example.com"
+]

@@ -1,0 +1,63 @@
+---
+- hosts: node1
+  become: true
+  gather_facts: false
+  tasks:
+    - name: install httpd
+      yum:
+        name: httpd
+        update_cache: true
+        state: present
+
+    - name: ensure httpd is enabled and running
+      service:
+        name: httpd
+        state: started
+        enabled: true
+
+    - name: copy /var/www/html/index.html
+      copy:
+        src: files/index.html
+        dest: /var/www/html/index.html
+        mode: 0755
+      notify: restart apache
+
+    - name: ensure firewalld is installed
+      yum:
+        name: firewalld
+        update_cache: true
+        state: present
+
+    - name: ensure firewalld is enabled and running
+      service:
+        name: firewalld
+        state: started
+        enabled: true
+
+    - name: permit traffic for ssh service
+      firewalld:
+        service: ssh
+        state: enabled
+        permanent: true
+        immediate: true
+      notify: reload firewalld
+
+    - name: permit traffic for http service
+      firewalld:
+        service: http
+        state: enabled
+        permanent: true
+        immediate: true
+      notify: reload firewalld
+
+  handlers:
+    - name: restart apache
+      service:
+        name: httpd
+        state: reloaded
+        enabled: true
+
+    - name: reload firewalld
+      service:
+        name: firewalld
+        state: reloaded
