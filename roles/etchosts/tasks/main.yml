@@ -1,0 +1,8 @@
+---
+- name: configure hosts
+  become: true
+  template:
+    src: templates/hosts.j2
+    dest: /etc/hosts
+    mode: 0644
+    backup: true

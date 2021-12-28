@@ -1,0 +1,5 @@
+---
+- hosts: node1
+  gather_facts: true
+  roles:
+    - task5

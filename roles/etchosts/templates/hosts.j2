@@ -1,0 +1,5 @@
+# {{ ansible_managed }}
+127.0.0.1   localhost
+{% for etc_host in etc_hosts %}
+{{ etc_host }}
+{% endfor %}

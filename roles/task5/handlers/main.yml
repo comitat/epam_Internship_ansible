@@ -1,0 +1,12 @@
+---
+- name: restart apache
+  service:
+    name: httpd
+    state: "{{ apache_restart_state }}"
+  become: true
+
+- name: reload firewalld
+  service:
+    name: firewalld
+    state: "{{ firewalld_restart_state }}"
+  become: true

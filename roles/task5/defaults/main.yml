@@ -1,0 +1,2 @@
+---
+wep_page_text: "Welcome to {{ ansible_default_ipv4.address }}"

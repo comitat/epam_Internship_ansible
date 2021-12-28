@@ -1,0 +1,17 @@
+---
+# apache  vars
+apache_listen_port: 80
+
+apache_enabled: true
+apache_restart_state: reloaded
+
+apache_package_state: present
+apache_state: started
+
+
+# firewalld vars
+firewalld_enabled: true
+firewalld_restart_state: reloaded
+
+firewalld_package_state: present
+firewalld_state: started
