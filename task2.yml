@@ -1,0 +1,29 @@
+---
+- hosts: node1
+  become: true
+  gather_facts: false
+  tasks:
+    - name: remove httpd
+      yum:
+        name: httpd
+        update_cache: true
+        state: absent
+
+    - name: remove /var/www/html/index.html
+      file:
+        path: /var/www/html/index.html
+        state: absent
+
+    - name: remove firewalld rule for httpd
+      firewalld:
+        service: http
+        state: disabled
+        permanent: true
+        immediate: true
+      notify: reload firewalld
+
+  handlers:
+    - name: reload firewalld
+      service:
+        name: firewalld
+        state: reloaded
