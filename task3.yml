@@ -1,0 +1,36 @@
+---
+- hosts: node1
+  become: true
+  gather_facts: false
+  tasks:
+    - name: test if net.ifnames=0 exists
+      shell: grep -c "net.ifnames=0" /etc/default/grub || true
+      register: test_ifnames
+      changed_when: test_ifnames.stdout == "0"
+
+    - name: test if biosdevname=0 exists
+      shell: grep -c "biosdevname=0" /etc/default/grub || true
+      register: test_biosdevname
+      changed_when: test_biosdevname.stdout == "0"
+
+    - name: append line net.ifnames=0
+      lineinfile:
+        path: /etc/default/grub
+        regexp: '(GRUB_CMDLINE_LINUX=.*)"(?!net.ifnames=0)'
+        line: '\1 net.ifnames=0"'
+        backrefs: true
+        state: present
+      when: test_ifnames.stdout == "0"
+
+    - name: append line biosdevname=0
+      lineinfile:
+        path: /etc/default/grub
+        regexp: '(GRUB_CMDLINE_LINUX=.*)"(?!biosdevname=0)'
+        line: '\1 biosdevname=0"'
+        backrefs: true
+        state: present
+      when: test_biosdevname.stdout == "0"
+
+    - name: execute grub2-mkconfig
+      command: grub2-mkconfig
+      when: test_ifnames.stdout == "0" or test_biosdevname.stdout == "0"
