@@ -1,0 +1,5 @@
+---
+- hosts: node2
+  gather_facts: true
+  roles:
+    - task6

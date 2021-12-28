@@ -1,0 +1,16 @@
+---
+- name: ensure selinux dependencies are installed 
+  yum:
+    name: 
+      - libselinux-python
+      - libsemanage-python
+    update_cache: true
+    state: latest
+  become: true
+
+- name: allow anonymous write access
+  seboolean:
+    name: ftpd_anon_write
+    state: true
+    persistent: true
+  become: true

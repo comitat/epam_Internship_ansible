@@ -1,0 +1,12 @@
+---
+- name: restart vsftpd
+  service:
+    name: vsftpd
+    state: "{{ vsftpd_restart_state }}"
+  become: true
+
+- name: reload firewalld
+  service:
+    name: firewalld
+    state: "{{ firewalld_restart_state }}"
+  become: true
