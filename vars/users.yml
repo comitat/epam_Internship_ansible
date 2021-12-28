@@ -1,0 +1,22 @@
+---
+users:
+  - name: devops
+    comment: devops@example.com
+    create_home: true
+    home: /home/devops
+    password: $6$0jiL4Z11mwML986q$sueYP2LOdrMBrg438VoAA00v/JYBsioQ/IBuda1lqqFG7MC8JNRXTHRvVR3UgW.lgDajBtTSDw4WF1UJYVf8l/
+    state: present
+
+  - name: develop
+    comment: develop@example.com
+    create_home: true
+    home: /home/develop
+    password: $6$N.wDXdbHmEMDPT3n$O6PjFsROwRwFwkELocJ6NECJgswnYOEZd9sKrGUcKvq2MJexGUi1jE.5bOsazk2PE.xfa8.qDr72j.qtxZuY80
+    state: present
+
+  - name: operation
+    comment: user@example.com
+    create_home: true
+    home: /home/operation
+    password: $6$3cdyeMdPWcWHDBRd$sD9zbAuwdeL/NgNV/k/iFoiOtKBpXTrdi2xcjgRMU.O8XtMIjFRFyALfaOe/9LGe5dXBi186/i.VjxdvnG0qt0
+    state: present

@@ -1,0 +1,19 @@
+---
+- hosts: node1
+  become: true
+  gather_facts: false
+  tasks:
+    - name: include vars from file
+      include_vars:
+        file: vars/users.yml
+
+    - name: create users
+      user:
+        name: "{{ item.name }}"
+        comment: "{{ item.comment }}"
+        create_home: "{{ item.create_home }}"
+        home: "{{ item.home }}"
+        password: "{{ item.password }}"
+        state: "{{ item.state }}"
+      loop: "{{ users }}"
+      become: true
